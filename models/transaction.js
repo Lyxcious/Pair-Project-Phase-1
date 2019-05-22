@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Transaction.associate = function(models) {
     Transaction.belongsTo(models.User, {foreignKey: "UserId"})
-    Transaction.belongsToMany(models.Item, { through: models.TransactionItem }, {foreignKey: "TransactionId"})
+    Transaction.belongsToMany(models.Item, { through: models.TransactionItem })
   };
   return Transaction;
 }

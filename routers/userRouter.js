@@ -11,6 +11,6 @@ router.get("/:username/profile", UserController.profile)
 router.get("/:username/profile/edit", UserController.profileEdit)
 router.post("/:username/profile/edit", UserController.profileUpdate)
 router.get("/:username/profile/delete", UserController.profileDelete)
-// router.get("/:username/transaction", UserController.transactionHistory)
+router.get("/:username/transaction", UserController.transactionHistory)
 
 module.exports = router

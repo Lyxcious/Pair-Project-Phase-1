@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER
   }, {});
   Item.associate = function(models) {
-    Item.belongsToMany(models.Transaction, { through: models.TransactionItem }, {foreignKey: "ItemId"})
+    Item.belongsToMany(models.Transaction, { through: models.TransactionItem })
   };
   return Item;
 };

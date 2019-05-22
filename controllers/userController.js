@@ -1,5 +1,6 @@
-const {User} = require("../models")
+const {User, Transaction, TransactionItem, Item} = require("../models")
 const bcrypt = require("bcryptjs")
+const convertDate = require("../helpers/convertDate")
 
 class UserController {
   static register (req, res) {
@@ -146,6 +147,33 @@ class UserController {
     .catch(err => {
       res.locals.error = err
       res.render("pages/home.ejs")
+    })
+  }
+
+  static transactionHistory (req, res){
+    User.findOne({where: {username: req.params.username}})
+    .then(user => {
+      return Transaction.findAll({
+        include: [{
+          model: Item
+        }],
+        where: {UserId: user.id}
+      })
+    })
+    .then(transactions => {
+      let totalSpentTime = []
+      for(let i = 0; i < transactions.length; i++){
+        let total = 0
+        for(let j = 0; j < transactions[i].Items.length; j++){
+          total += (transactions[i].Items[j].price * transactions[i].Items[j].TransactionItem.quantity)
+        }
+        totalSpentTime.push([total, convertDate(transactions[i].timestamp)])
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      res.locals.error = err
+      res.redirect("/")
     })
   }
 }
