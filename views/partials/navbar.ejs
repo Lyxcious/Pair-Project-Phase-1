@@ -1,11 +1,19 @@
 <nav>
 <% if (locals.user) {%>
-<a><%= locals.user%></a>
-<a>Logout</a>
+  <%if (locals.user.username === "admin") {%>
+    <a>Admin</a>
+  <%} else {%>
+    <a href="/user/<%= locals.user.username%>/profile"><%= locals.user.username%></a>
+  <%}%>
+<a href="/user/logout">Logout</a>
 <%} else {%>
 <a href="/user/register">Register</a>
 <a href="/user/login">Login</a>
 <%}%>
 <a href="/">Home</a>
-<a>Item List</a>
+<% if (locals.user) {%>
+  <a href="/item/<%= locals.user.username%>">Item List</a>
+<%} else {%>
+  <a href="/item">Item List</a>
+<%}%>
 </nav>

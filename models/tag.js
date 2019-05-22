@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     tagName: DataTypes.STRING
   }, {});
   Tag.associate = function(models) {
-    Tag.hasMany(models.ItemTag, {foreignKey: "TagId"})
+    Tag.belongsToMany(models.Item, { through: models.ItemTag }, {foreignKey: "TagId"})
   };
   return Tag;
 };

@@ -61,6 +61,93 @@ class UserController {
       res.render("pages/user/login.ejs")
     })
   }
+
+  static logout (req, res) {
+    req.session.destroy(err => {
+      if(err){
+        res.locals.error = err
+        return res.render("pages/home.ejs")
+      } else {
+        return res.render("pages/home.ejs")
+      }
+    })
+  }
+
+  static profile (req, res) {
+    User.findOne({where: {username: req.params.username}})
+    .then(user => {
+      let data = {
+        username: user.username,
+        email: user.email
+      }
+      res.render("pages/user/profile.ejs", {
+        user: data
+      })
+    })
+    .catch(err => {
+      res.locals.error = err
+      res.render("pages/home.ejs")
+    })
+  }
+
+  static profileEdit (req, res){
+    User.findOne({where: {username: req.params.username}})
+    .then(user => {
+      let data = {
+        username: user.username,
+        password: user.password,
+        email: user.email
+      }
+      res.render("pages/user/edit.ejs", {
+        user: data
+      })
+    })
+    .catch(err => {
+      res.locals.error = err
+      res.render("pages/home.ejs")
+    })
+  }
+
+  static profileUpdate (req, res) {
+    let data
+    User.findOne({where: {username: req.params.username}})
+    .then(user => {
+      user.username = req.body.username
+      user.email = req.body.email
+      if (req.body.password !== "set new password"){
+        user.password = req.body.password
+      } else {
+        User.removeHook("beforeSave", "encryptPassword")
+      }
+      data = user
+      return user.save()
+    })
+    .then(() => {
+      res.redirect(`/user/${data.username}/profile`)
+    })
+    .catch(err => {
+      res.locals.error = err
+      res.render("pages/home.ejs")
+    })
+  }
+
+  static profileDelete(req, res){
+    User.destroy({where: {username: req.params.username}})
+    .then(() => {
+      req.session.destroy(err => {
+        if(err){
+          res.locals.error = err
+          return res.render("pages/home.ejs")
+        } else {
+          return res.render("pages/home.ejs")
+        }
+      })
+    })
+    .catch(err => {
+      res.locals.error = err
+      res.render("pages/home.ejs")
+    })
+  }
 }
 
 module.exports = UserController

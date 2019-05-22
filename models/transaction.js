@@ -1,12 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Transaction = sequelize.define('Transaction', {
-    timestamp: DataTypes.DATE,
+    timestamp: DataTypes.DATEONLY,
     UserId: DataTypes.INTEGER
   }, {});
   Transaction.associate = function(models) {
     Transaction.belongsTo(models.User, {foreignKey: "UserId"})
-    Transaction.hasMany(models.TransactionItem, {foreignKey: "TransactionId"})
+    Transaction.belongsToMany(models.Item, { through: models.TransactionItem }, {foreignKey: "TransactionId"})
   };
   return Transaction;
 };
