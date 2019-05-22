@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homepage</title>
+    </style>
+  </head>
+  <body>
+    <%- include("../../partials/navbar.ejs")%>
+    <% if (locals.error) {%>
+    <p><%= locals.error.message%></p>
+    <%}%>
+    <h2>Login</h2>
+    <form action="/user/login" method="POST">
+      <lable for="username">Username</lable><br>
+      <input type="text" name="username" id="username"><br>
+      <lable for="password">Password</lable><br>
+      <input type="password" name="password" id="password"><br>
+      <button type="submit">Submit</button>
+      <button type="reset">Clear</button>
+    </form>
+  </body>
+</html>
