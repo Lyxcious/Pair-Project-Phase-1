@@ -3,6 +3,7 @@ const app = express()
 const port = 3000 //port number
 const user = require("./routers/userRouter")
 const item = require("./routers/itemRouter")
+const transaction = require("./routers/transactionRouter")
 const session = require('express-session')
 
 app.use(express.json())
@@ -11,10 +12,14 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    maxAge: 60000000000
+  }
 }))
 
 app.use("/user", user)
 app.use("/item", item)
+app.use("/transaction", transaction)
 app.get("/", (req, res) => {
   if(req.session){
     res.locals.user = req.session.user

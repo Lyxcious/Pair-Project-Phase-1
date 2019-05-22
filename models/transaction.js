@@ -9,4 +9,4 @@ module.exports = (sequelize, DataTypes) => {
     Transaction.belongsToMany(models.Item, { through: models.TransactionItem }, {foreignKey: "TransactionId"})
   };
   return Transaction;
-};
+}

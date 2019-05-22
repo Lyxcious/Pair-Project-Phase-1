@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Item</title>
+    </style>
+  </head>
+  <body>
+    <%- include("../../partials/navbar.ejs")%>
+    <% if (locals.error) {%>
+    <p><%= locals.error.message%></p>
+    <%}%>
+    <h2>Add Item</h2>
+    <form action="/item/add" method="POST">
+      <lable for="itemName">Item Name</lable><br>
+      <input type="text" name="itemName" id="itemName"><br>
+      <lable for="itemDesc">Item Description</lable><br>
+      <input type="text" name="itemDesc" id="itemDesc"><br>
+      <lable for="price">Price</lable><br>
+      <input type="number" name="price" id="price"><br>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

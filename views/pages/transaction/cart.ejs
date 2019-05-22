@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart</title>
+    </style>
+  </head>
+  <body>
+    <%- include("../../partials/navbar.ejs")%>
+    <% if (locals.error) {%>
+    <p><%= locals.error.message%></p>
+    <%}%>
+    <h2>Cart</h2>
+    <form action="/transaction/<%= locals.user.username%>" method="POST">
+      <table>
+        <tr>
+          <th>No.</th>
+          <th>Item Name</th>
+          <th>Item Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+        <%for (let i = 0; i < items.length; i++) {%>
+          <tr>
+            <td><%= i+1%></td>
+            <td><%= items[i].itemName%></td>
+            <td><%= items[i].itemDesc%></td>
+            <td><%= items[i].price%></td>
+            <td><input type="number" name="quantity-<%= i+1%>" min="0" value="0"></td>
+          </tr>
+        <%}%>
+      </table>
+        <button type="submit">Checkout</button>
+        <button type="reset">Clear</button>
+    <form>
+  </body>
+</html>
