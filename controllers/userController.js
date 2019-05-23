@@ -193,7 +193,7 @@ class UserController {
             if (!total[j] && total[j] != 0){
               total[j] = 0
             } 
-            total[j] += transactions[i]['Items.price'] * transactions[i]['Items.TransactionItem.quantity']
+            total[j] += Transaction.getTotal(transactions[i]['Items.price'], transactions[i]['Items.TransactionItem.quantity'])
           }
         }
       }
