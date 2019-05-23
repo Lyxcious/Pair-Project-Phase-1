@@ -186,7 +186,6 @@ class UserController {
           }
         }
       }
-      console.log(time)
       let total = []
       for(let i = 0; i < transactions.length; i++){
         for (let j = 0; j < time.length; j++){
@@ -198,7 +197,11 @@ class UserController {
           }
         }
       }
-      console.log(total)
+      // res.send(total)
+      res.render("pages/user/purchaseHistory.ejs", {
+        data: total,
+        labels: time
+      })
     })
     .catch(err => {
       res.locals.error = err
