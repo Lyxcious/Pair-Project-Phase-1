@@ -186,7 +186,6 @@ class UserController {
           }
         }
       }
-      console.log(time)
       let total = []
       for(let i = 0; i < transactions.length; i++){
         for (let j = 0; j < time.length; j++){
@@ -198,7 +197,6 @@ class UserController {
           }
         }
       }
-      console.log(total)
     })
     .catch(err => {
       res.locals.error = err
