@@ -197,6 +197,10 @@ class UserController {
           }
         }
       }
+      res.render("pages/user/purchaseHistory.ejs", {
+        data: total,
+        labels: time
+      })
     })
     .catch(err => {
       res.locals.error = err
