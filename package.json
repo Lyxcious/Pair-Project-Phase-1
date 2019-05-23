@@ -21,6 +21,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "chartjs": "^0.3.24",
+    "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
     "express": "^4.17.0",
     "express-session": "^1.16.1",
