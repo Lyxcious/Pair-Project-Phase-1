@@ -37,6 +37,9 @@ class ItemController {
   }
 
   static add (req, res) {
+    res.locals.user = {
+      username: "admin"
+    }
     res.render("pages/item/add.ejs")
   }
 
@@ -63,8 +66,15 @@ class ItemController {
       if (!req.session.cart){
         req.session.cart =[]
       }
-      req.session.cart.push (item)
-      console.log(req.session)
+      let found = false
+      for (let i = 0; i < req.session.cart.length; i++){
+        if (req.session.cart[i].id === item.id){
+          found = true
+        }
+      }
+      if (!found){
+        req.session.cart.push (item)
+      }
       return Item.findAll()
     })
     .then(items => {
@@ -87,6 +97,9 @@ class ItemController {
   static edit (req, res){
     Item.findOne({where: {id: req.params.id}})
     .then(item => {
+      res.locals.user = {
+        username: "admin"
+      }
       res.render("pages/item/edit.ejs", {
         item: item
       })

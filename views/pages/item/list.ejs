@@ -2,51 +2,64 @@
 <html>
   <head>
     <title>Item List</title>
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
     <%- include("../../partials/navbar.ejs")%>
     <% if (locals.error) {%>
-    <p><%= locals.error.message%></p>
+    <p class="alert alert-warning"><%= locals.error.message%></p>
     <%}%>
-    <h2>Item List</h2>
-      <table>
-        <tr>
-          <th>No.</th>
-          <th>Item Name</th>
-          <th>Item Description</th>
-          <th>Price</th>
-          <%if (locals.user) {%>
-            <%if (locals.user.username === "admin") {%>
-              <th>Option</th>
-            <%}%>
-          <%}%>
-        </tr>
-        <%for (let i = 0; i < items.length; i++) {%>
+    <div align="center">
+      <br>
+      <h2>Item List</h2>
+      <br>
+        <table class="table">
           <tr>
-            <td><%= i+1%></td>
-            <td><%= items[i].itemName%></td>
-            <td><%= items[i].itemDesc%></td>
-            <td><%= items[i].price%></td>
+            <th>No.</th>
+            <th>Item Name</th>
+            <th>Item Description</th>
+            <th>Price</th>
             <%if (locals.user) {%>
-                <td><a href="/item/<%= items[i].id%>/edit">Edit</a> | <a href="/item/<%= items[i].id%>/delete" onclick="return confirm('Delete item from list? Confirm to delete!')">Delete</a></td>
-              <td>
-                <form action="/item/<%= locals.user.username%>/<%= items[i].id%>" method="GET">
-                  <button type="Submit">Add to Cart</button>
-                </form>
-              </td>
+              <th>Option</th>
+              <%if (locals.user.username !== "admin") {%>
+                <th></th>
+              <%}%>
             <%}%>
           </tr>
+          <%for (let i = 0; i < items.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= items[i].itemName%></td>
+              <td><%= items[i].itemDesc%></td>
+              <td><%= items[i].price%></td>
+              <%if (locals.user) {%>
+                  <td><a href="/item/<%= items[i].id%>/edit">Edit</a> | <a href="/item/<%= items[i].id%>/delete" onclick="return confirm('Delete item from list? Confirm to delete!')">Delete</a></td>
+                  <%if (locals.user.username !== "admin") {%>
+                    <td>
+                      <form action="/item/<%= locals.user.username%>/<%= items[i].id%>" method="GET">
+                        <button type="submit" class="btn btn-primary btn-sm">Add To Cart</button>
+                      </form>
+                    </td>
+                  <%}%>
+              <%}%>
+            </tr>
+          <%}%>
+        </table>
+        <%if (locals.user) {%>
+          <%if (locals.user.username != "admin") {%>
+            <form action="/transaction/<%= locals.user.username%>/" action="GET">
+              <button type="submit" class="btn btn-primary btn-sm">Process Cart</button>
+            </form>
+          <%} else {%>
+            <form action="/item/add" action="GET">
+              <button type="submit" class="btn btn-primary btn-sm">Add Item</button>
+            </form>
+          <%}%>
         <%}%>
-      </table>
-      <%if (locals.user) {%>
-        <%if (locals.user.username != "admin") {%>
-          <form action="/transaction/<%= locals.user.username%>/" action="GET">
-          <button type="submit">Process Buy</button>
-          </form>
-        <%} else {%>
-          <a href="/item/add">Add Item</a>
-        <%}%>
-      <%}%>
+    </div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>

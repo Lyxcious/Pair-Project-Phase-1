@@ -4,7 +4,7 @@ let ItemController = require("../controllers/itemController")
 let auth = require("../middleware/auth")
 
 router.get("/", ItemController.list)
-router.get("/add", ItemController.add)
+router.get("/add", auth, ItemController.add)
 router.post("/add", ItemController.create)
 router.get("/:id/edit", auth, ItemController.edit)
 router.post("/:id/edit", ItemController.update)

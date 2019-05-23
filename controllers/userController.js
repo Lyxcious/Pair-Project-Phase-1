@@ -197,6 +197,9 @@ class UserController {
           }
         }
       }
+      res.locals.user = {
+        username: req.params.username
+      }
       res.render("pages/user/purchaseHistory.ejs", {
         data: total,
         labels: time

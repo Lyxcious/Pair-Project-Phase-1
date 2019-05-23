@@ -2,35 +2,43 @@
 <html>
   <head>
     <title>Cart</title>
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
     <%- include("../../partials/navbar.ejs")%>
     <% if (locals.error) {%>
-    <p><%= locals.error.message%></p>
+    <p class="alert alert-warning"><%= locals.error.message%></p>
     <%}%>
-    <h2>Cart</h2>
-    <form action="/transaction/<%= locals.user.username%>" method="POST">
-      <table>
-        <tr>
-          <th>No.</th>
-          <th>Item Name</th>
-          <th>Item Description</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
-        <%for (let i = 0; i < items.length; i++) {%>
+    <div align="center">
+      <br>
+      <h2>Cart</h2>
+      <br>
+      <form action="/transaction/<%= locals.user.username%>" method="POST">
+        <table class="table">
           <tr>
-            <td><%= i+1%></td>
-            <td><%= items[i].itemName%></td>
-            <td><%= items[i].itemDesc%></td>
-            <td><%= items[i].price%></td>
-            <td><input type="number" name="quantity-<%= i+1%>" min="0" value="0"></td>
+            <th>No.</th>
+            <th>Item Name</th>
+            <th>Item Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
           </tr>
-        <%}%>
-      </table>
-        <button type="submit">Checkout</button>
-        <button type="reset">Clear</button>
-    <form>
+          <%for (let i = 0; i < items.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= items[i].itemName%></td>
+              <td><%= items[i].itemDesc%></td>
+              <td><%= items[i].price%></td>
+              <td><input type="number" name="quantity-<%= i+1%>" min="0" value="0"></td>
+            </tr>
+          <%}%>
+        </table>
+          <button type="submit" class="btn btn-primary btn-sm">Checkout</button>
+          <button type="reset" class="btn btn-primary btn-sm">Clear</button>
+      <form>
+    </div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>
