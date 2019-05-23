@@ -29,15 +29,12 @@
             <td><%= items[i].itemDesc%></td>
             <td><%= items[i].price%></td>
             <%if (locals.user) {%>
-              <%if (locals.user.username === "admin") {%>
                 <td><a href="/item/<%= items[i].id%>/edit">Edit</a> | <a href="/item/<%= items[i].id%>/delete" onclick="return confirm('Delete item from list? Confirm to delete!')">Delete</a></td>
-              <%} else {%>
               <td>
                 <form action="/item/<%= locals.user.username%>/<%= items[i].id%>" method="GET">
                   <button type="Submit">Add to Cart</button>
                 </form>
               </td>
-              <%}%>
             <%}%>
           </tr>
         <%}%>

@@ -11,7 +11,7 @@
 <body>
   <%- include("../partials/navbar.ejs")%>
   <% if (locals.error) {%>
-  <p><%= locals.error%></p>
+  <p><%= locals.error.message%></p>
   <%}%>
   </body>
 </html>
