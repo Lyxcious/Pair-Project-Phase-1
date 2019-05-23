@@ -186,18 +186,21 @@ class UserController {
           }
         }
       }
-      console.log(time)
       let total = []
       for(let i = 0; i < transactions.length; i++){
-          let found = false
-          for (let j = 0; j < time.length; j++){
-            if (transactions[i].timestamp === time[j]){
-              found = true
-            }
+        for (let j = 0; j < time.length; j++){
+          if (transactions[i].timestamp === time[j]){
+            if (!total[j] && total[j] != 0){
+              total[j] = 0
+            } 
+            total[j] += Transaction.getTotal(transactions[i]['Items.price'], transactions[i]['Items.TransactionItem.quantity'])
           }
-          if (!found){
-            time.push(transactions[i].timestamp)
-          }
+        }
+      }
+      res.render("pages/user/purchaseHistory.ejs", {
+        data: total,
+        labels: time
+      })
     })
     .catch(err => {
       res.locals.error = err
