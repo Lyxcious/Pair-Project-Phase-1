@@ -197,7 +197,6 @@ class UserController {
           }
         }
       }
-      // res.send(total)
       res.render("pages/user/purchaseHistory.ejs", {
         data: total,
         labels: time
