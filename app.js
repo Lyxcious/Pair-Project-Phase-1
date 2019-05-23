@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000 //port number
+const port = process.env.PORT || 4000; //port number
 const user = require("./routers/userRouter")
 const item = require("./routers/itemRouter")
 const transaction = require("./routers/transactionRouter")
@@ -27,4 +27,4 @@ app.get("/", (req, res) => {
   res.render("pages/home.ejs")
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Server starts on port ${port}!`))
