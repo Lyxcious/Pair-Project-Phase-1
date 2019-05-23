@@ -186,17 +186,18 @@ class UserController {
           }
         }
       }
+      console.log(time)
       let total = []
       for(let i = 0; i < transactions.length; i++){
-        for (let j = 0; j < time.length; j++){
-          if (transactions[i].timestamp === time[j]){
-            if (!total[j] && total[j] != 0){
-              total[j] = 0
-            } 
-            total[j] += transactions[i]['Items.price'] * transactions[i]['Items.TransactionItem.quantity']
+          let found = false
+          for (let j = 0; j < time.length; j++){
+            if (transactions[i].timestamp === time[j]){
+              found = true
+            }
           }
-        }
-      }
+          if (!found){
+            time.push(transactions[i].timestamp)
+          }
     })
     .catch(err => {
       res.locals.error = err

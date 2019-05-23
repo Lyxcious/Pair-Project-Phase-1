@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER
   }, {});
 
+  Transaction.getTotal = (price, quantity) => {
+    return price * quantity
+  }
+
   Transaction.associate = function(models) {
     Transaction.belongsTo(models.User, {foreignKey: "UserId"})
     Transaction.belongsToMany(models.Item, { through: models.TransactionItem })
