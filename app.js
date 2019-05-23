@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 4000; //port number
+const port = process.env.PORT || 5432; //port number
 const user = require("./routers/userRouter")
 const item = require("./routers/itemRouter")
 const transaction = require("./routers/transactionRouter")
