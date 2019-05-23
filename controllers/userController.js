@@ -154,24 +154,53 @@ class UserController {
     User.findOne({where: {username: req.params.username}})
     .then(user => {
       return Transaction.findAll({
+        attributes: ["timestamp"],
         include: [{
-          model: Item
+          model: Item,
+          attributes: ["price"],
+          through: {
+            attributes: ["quantity"]
+          }
         }],
-        where: {UserId: user.id}
+        where: {UserId: user.id},
+        raw: true
       })
     })
     .then(transactions => {
-      let totalSpentTime = []
+      transactions.forEach(transaction => {
+        transaction.timestamp = convertDate(transaction.timestamp)
+      })
+      let time = []
       for(let i = 0; i < transactions.length; i++){
-        let total = 0
-        for(let j = 0; j < transactions[i].Items.length; j++){
-          total += (transactions[i].Items[j].price * transactions[i].Items[j].TransactionItem.quantity)
+        if (i === 0){
+          time.push(transactions[i].timestamp)
+        } else {
+          let found = false
+          for (let j = 0; j < time.length; j++){
+            if (transactions[i].timestamp === time[j]){
+              found = true
+            }
+          }
+          if (!found){
+            time.push(transactions[i].timestamp)
+          }
         }
-        totalSpentTime.push([total, convertDate(transactions[i].timestamp)])
       }
+      console.log(time)
+      let total = []
+      for(let i = 0; i < transactions.length; i++){
+        for (let j = 0; j < time.length; j++){
+          if (transactions[i].timestamp === time[j]){
+            if (!total[j] && total[j] != 0){
+              total[j] = 0
+            } 
+            total[j] += transactions[i]['Items.price'] * transactions[i]['Items.TransactionItem.quantity']
+          }
+        }
+      }
+      console.log(total)
     })
     .catch(err => {
-      console.log(err)
       res.locals.error = err
       res.redirect("/")
     })

@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamp: DataTypes.DATEONLY,
     UserId: DataTypes.INTEGER
   }, {});
+
   Transaction.associate = function(models) {
     Transaction.belongsTo(models.User, {foreignKey: "UserId"})
     Transaction.belongsToMany(models.Item, { through: models.TransactionItem })
