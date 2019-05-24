@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   User.addHook("beforeSave", "encryptPassword", (user, option) => {
     let hash = bcrypt.hashSync(user.password, 10)
     user.password = hash
-    console.log(hash);
   })
 
   User.associate = function(models) {
