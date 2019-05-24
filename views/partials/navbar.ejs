@@ -1,35 +1,40 @@
 <ul class="nav">
+  <!-- <a class="navbar-brand"><span class="highlight">ShopN</span>Shop</a>
+   -->
+  <a class="navbar-brand" href="/"><i class="fa fa-truck" aria-hidden="true"></i><span
+      class="highlight">ShopN</span>Shop</a>
+
   <% if (locals.user) {%>
-    <%if (locals.user.username === "admin") {%>
-      <li class="nav-item">
-          <a class="nav-link">Admin</a>
-      </li>
-    <%} else {%>
-      <li class="nav-item">
-          <a class="nav-link" href="/user/<%= locals.user.username%>/profile"><%= locals.user.username%></a>
-      </li>
-    <%}%>
+  <%if (locals.user.username === "admin") {%>
+  <li class="nav-item">
+    <a class="nav-link">Admin</a>
+  </li>
+  <%} else {%>
+  <li class="nav-item">
+    <a class="nav-link" href="/user/<%= locals.user.username%>/profile"><%= locals.user.username%></a>
+  </li>
+  <%}%>
     <li class="nav-item">
         <a class="nav-link" href="/user/logout">Logout</a>
     </li>
   <%} else {%>
-    <li class="nav-item">
-        <a class="nav-link" href="/user/register">Register</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/user/login">Login</a>
-    </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/user/register">Register</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/user/login">Login</a>
+  </li>
   <%}%>
   <li class="nav-item">
       <a class="nav-link" href="/">Home</a>
   </li>
   <% if (locals.user) {%>
   <li class="nav-item">
-      <a class="nav-link" href="/item/<%= locals.user.username%>">Item List</a>
+    <a class="nav-link" href="/item/<%= locals.user.username%>">Item List</a>
   </li>
   <%} else {%>
-    <li class="nav-item">
-      <a class="nav-link" href="/item">Item List</a>
-    </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/item">Item List</a>
+  </li>
   <%}%>
 </ul>
